@@ -52,4 +52,46 @@ const logInUserZodSchema = z.object({
       message: "Password must contain at least one special character",
     }),
 });
-export const userValidation = { createUserZodSchema, logInUserZodSchema };
+
+const updateUserByAdminZodSchema = z.object({
+  fullName: z.string().optional(),
+  email: z.string().email().optional(),
+  mobile: z
+    .string()
+    .regex(/^01[3-9]\d{8}$/, {
+      message: "Phone number must be a valid 11-digit Bangladeshi number.",
+    })
+    .optional(),
+  address: z.string().optional(),
+  nidNumber: z.string().optional(),
+  passportNumber: z.string().optional(),
+  isMobileVerified: z.boolean().optional(),
+  isEmailVerified: z.boolean().optional(),
+  isNidVerified: z.boolean().optional(),
+  isPassportVerified: z.boolean().optional(),
+  profileImage: z.string().optional(),
+  role: z.string().optional(),
+  isDeleted: z.boolean().optional(),
+  isActive: z.string().optional(),
+});
+
+const updateUser = z.object({
+  fullName: z.string().optional(),
+  email: z.string().email().optional(),
+  mobile: z
+    .string()
+    .regex(/^01[3-9]\d{8}$/, {
+      message: "Phone number must be a valid 11-digit Bangladeshi number.",
+    })
+    .optional(),
+  address: z.string().optional(),
+  nidNumber: z.string().optional(),
+  passportNumber: z.string().optional(),
+  profileImage: z.string().optional(),
+});
+export const userValidation = {
+  createUserZodSchema,
+  logInUserZodSchema,
+  updateUserByAdminZodSchema,
+  updateUser,
+};

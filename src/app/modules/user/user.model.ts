@@ -15,8 +15,7 @@ const userSchema = new Schema<IUser>(
     isEmailVerified: { type: Boolean, default: false },
     isNidVerified: { type: Boolean, default: false },
     isPassportVerified: { type: Boolean, default: false },
-    verifiedBy: { type: String, enum: ["nid", "passport", "admin"] },
-    profileImage: { type: String },
+    profileImage: { type: String, default: null },
     role: { type: String, enum: Role, default: "user" },
     isDeleted: { type: Boolean, default: false },
     isActive: {

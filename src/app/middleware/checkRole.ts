@@ -4,29 +4,30 @@ import httpStatus from "http-status-codes";
 
 import AppError from "../errorHandler/AppError";
 import jwt from "jsonwebtoken";
-import { jwtSecrete } from "../modules/auth/auth.service";
+
 import statusCode from "http-status-codes";
 import { User } from "../modules/user/user.model";
 import { UserValidationResult, validateUserStatus } from "./validateUserStatus";
+import envVariables from "../config/env.config";
 export const CheckRole =
   (...authRole: string[]) =>
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const token = req.headers.authorization || req.cookies.accessToken;
-
       if (!token) {
         throw new AppError(httpStatus.FORBIDDEN, "Unauthenticated user");
       }
 
       const tokenVerify: jwt.JwtPayload = jwt.verify(
         token,
-        jwtSecrete
+        envVariables.JWT_SECRET,
       ) as jwt.JwtPayload;
+      console.log(tokenVerify);
 
       if (!tokenVerify) {
         throw new AppError(
           httpStatus.FORBIDDEN,
-          "Admin verification failed for token"
+          "Admin verification failed for token",
         );
       }
 
@@ -40,13 +41,13 @@ export const CheckRole =
       if (!validation.isValid) {
         throw new AppError(
           validation.statusCode as number,
-          validation.message as string
+          validation.message as string,
         );
       }
-
       if (!authRole.includes(tokenVerify.role)) {
         throw new AppError(httpStatus.FORBIDDEN, "Unauthenticated user");
       }
+
       req.user = tokenVerify;
       next();
     } catch (error) {

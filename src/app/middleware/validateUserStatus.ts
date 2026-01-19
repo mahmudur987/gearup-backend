@@ -1,5 +1,4 @@
-import { IUSER, Status } from "../modules/user/user.interface";
-import { IWallet, WalletStatus } from "../modules/wallet/wallet.interface";
+import { IUser, Status } from "../modules/user/user.interface";
 
 export interface UserValidationResult {
   isValid: boolean;
@@ -8,7 +7,7 @@ export interface UserValidationResult {
 }
 
 export const validateUserStatus = (
-  user: IUSER | null
+  user: IUser | null,
 ): UserValidationResult => {
   if (!user) {
     return {
@@ -49,7 +48,7 @@ export const validateUserStatus = (
     };
   }
 
-  if (!user.isPhoneVerified) {
+  if (!user.isMobileVerified) {
     return {
       isValid: false,
       message: "User phone is not verified",
@@ -59,42 +58,7 @@ export const validateUserStatus = (
 
   return {
     isValid: true,
-  };
-};
-
-export const validateWalletStatus = (
-  wallet: IWallet | null
-): UserValidationResult => {
-  if (!wallet) {
-    return {
-      isValid: false,
-      message: "Wallet does not exist",
-      statusCode: 400,
-    };
-  }
-  if (wallet.status === WalletStatus.BLOCKED) {
-    return {
-      isValid: false,
-      message: "Wallet is blocked",
-      statusCode: 400,
-    };
-  }
-  if (wallet.status === WalletStatus.SUSPENDED) {
-    return {
-      isValid: false,
-      message: "Wallet is suspended",
-      statusCode: 400,
-    };
-  }
-  if (wallet.status === WalletStatus.PENDING) {
-    return {
-      isValid: false,
-      message: "Wallet is pending wait for admin approval",
-      statusCode: 400,
-    };
-  }
-
-  return {
-    isValid: true,
+    message: "User is valid",
+    statusCode: 200,
   };
 };

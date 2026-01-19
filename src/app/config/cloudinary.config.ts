@@ -30,7 +30,7 @@ export const deleteImageFromCLoudinary = async (url: string) => {
 };
 export const uploadBufferToCloudinary = async (
   buffer: Buffer,
-  fileName: string
+  fileName: string,
 ): Promise<UploadApiResponse | undefined> => {
   try {
     return new Promise((resolve, reject) => {
@@ -51,7 +51,7 @@ export const uploadBufferToCloudinary = async (
               return reject(error);
             }
             resolve(result);
-          }
+          },
         )
         .end(buffer);
     });

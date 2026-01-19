@@ -3,16 +3,29 @@
 import { NextFunction, Request, Response } from "express";
 import { envVariables } from "../config/env.config";
 import AppError from "../errorHandler/AppError";
+import { deleteImageFromCLoudinary } from "../config/cloudinary.config";
 
 export const globalErrorHandler = async (
   err: any,
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
+  if (req.file) {
+    await deleteImageFromCLoudinary(req.file.path);
+  }
+
+  if (req.files && (req.files.length as number) > 0) {
+    const images = (req.files as Express.Multer.File[])?.map(
+      (file) => file.path,
+    );
+
+    await Promise.all(images.map((image) => deleteImageFromCLoudinary(image)));
+  }
+
   let statusCode = 500;
   let message = `something went wrong `;
-  // console.log(err);
+
   if (err instanceof AppError) {
     statusCode = err.statusCode;
     message = err.message;

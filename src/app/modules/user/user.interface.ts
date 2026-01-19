@@ -23,11 +23,10 @@ export interface IUser {
   isEmailVerified: boolean;
   isNidVerified: boolean;
   isPassportVerified: boolean;
-  verifiedBy?: "nid" | "passport" | "admin";
   profileImage?: string;
   role?: Role;
   isDeleted?: boolean;
-  isActive?: Status;
+  status?: Status;
   createdAt?: Date;
   updatedAt?: Date;
 }

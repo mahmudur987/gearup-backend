@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import app from "./app";
 import connectDB from "./app/config/db";
 import envVariables from "./app/config/env.config";
+import { seedAdmin } from "./app/utils/seedSuperAdmin";
 dotenv.config();
 
 const PORT = envVariables.PORT || 5000;
@@ -12,6 +13,7 @@ const server = app.listen(PORT, () => {
 const startServer = async () => {
   try {
     await connectDB();
+    await seedAdmin();
   } catch (error) {
     console.error("Failed to start server", error);
   }
