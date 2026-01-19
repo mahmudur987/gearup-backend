@@ -1,6 +1,6 @@
 // src/modules/user/user.model.ts
 import { Schema, model } from "mongoose";
-import { IUser } from "./user.interface";
+import { IUser, Role, Status } from "./user.interface";
 
 const userSchema = new Schema<IUser>(
   {
@@ -17,7 +17,13 @@ const userSchema = new Schema<IUser>(
     isPassportVerified: { type: Boolean, default: false },
     verifiedBy: { type: String, enum: ["nid", "passport", "admin"] },
     profileImage: { type: String },
-    role: { type: String, enum: ["user", "seller", "admin"], default: "user" },
+    role: { type: String, enum: Role, default: "user" },
+    isDeleted: { type: Boolean, default: false },
+    isActive: {
+      type: String,
+      enum: Status,
+      default: "active",
+    },
   },
   { timestamps: true },
 );

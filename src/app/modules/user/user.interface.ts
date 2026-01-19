@@ -1,4 +1,17 @@
+export enum Role {
+  USER = "user",
+  SELLER = "seller",
+  ADMIN = "admin",
+}
+export enum Status {
+  ACTIVE = "active",
+  INACTIVE = "inactive",
+  BLOCKED = "blocked",
+  SUSPENDED = "suspended",
+}
+
 export interface IUser {
+  _id?: string;
   fullName: string;
   email: string;
   mobile: string;
@@ -12,7 +25,9 @@ export interface IUser {
   isPassportVerified: boolean;
   verifiedBy?: "nid" | "passport" | "admin";
   profileImage?: string;
-  role?: "user" | "seller" | "admin";
+  role?: Role;
+  isDeleted?: boolean;
+  isActive?: Status;
   createdAt?: Date;
   updatedAt?: Date;
 }
