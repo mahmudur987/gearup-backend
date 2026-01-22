@@ -9,6 +9,8 @@ export interface UserValidationResult {
 export const validateUserStatus = (
   user: IUser | null,
 ): UserValidationResult => {
+  console.log(user);
+
   if (!user) {
     return {
       isValid: false,

@@ -22,7 +22,6 @@ export const CheckRole =
         token,
         envVariables.JWT_SECRET,
       ) as jwt.JwtPayload;
-      console.log(tokenVerify);
 
       if (!tokenVerify) {
         throw new AppError(

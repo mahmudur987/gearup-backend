@@ -9,7 +9,10 @@ export enum Status {
   BLOCKED = "blocked",
   SUSPENDED = "suspended",
 }
-
+export interface IAuthProvider {
+  provider: string;
+  providerId: string;
+}
 export interface IUser {
   _id?: string;
   fullName: string;
@@ -27,6 +30,7 @@ export interface IUser {
   role?: Role;
   isDeleted?: boolean;
   status?: Status;
+  auth?: IAuthProvider[];
   createdAt?: Date;
   updatedAt?: Date;
 }

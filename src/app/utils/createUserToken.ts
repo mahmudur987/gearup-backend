@@ -13,12 +13,12 @@ export const createUserToken = (user: Partial<IUser>) => {
 
   const accessToken = generateToken(
     jwtPayload,
-    envVariables.ACCESS_TOKEN_SECRET,
+    envVariables.JWT_SECRET,
     envVariables.ACCESS_TOKEN_EXPIRES,
   );
   const refreshToken = generateToken(
     jwtPayload,
-    envVariables.REFRESH_TOKEN_SECRET,
+    envVariables.JWT_SECRET,
     envVariables.REFRESH_TOKEN_EXPIRES,
   );
   return { accessToken, refreshToken };

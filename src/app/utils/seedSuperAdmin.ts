@@ -27,13 +27,19 @@ export const seedAdmin = async () => {
       profileImage: "",
       address: "Dhaka",
       isDeleted: false,
-      isActive: Status.ACTIVE,
+      status: Status.ACTIVE,
       nidNumber: "123456789",
       passportNumber: "123456789",
       isMobileVerified: true,
       isEmailVerified: true,
       isNidVerified: true,
       isPassportVerified: true,
+      auth: [
+        {
+          provider: "credential",
+          providerId: "admin@gmail.com",
+        },
+      ],
     };
     await User.create(Admin);
 

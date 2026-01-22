@@ -18,9 +18,9 @@ export const envVariables = {
   REDIS_PASSWORD: process.env.REDIS_PASSWORD || "",
   REDIS_HOST: process.env.REDIS_HOST || "", // <- use env
   REDIS_PORT: process.env.REDIS_PORT || "", // <- use env
-  ACCESS_TOKEN_SECRET: process.env.ACCESS_TOKEN_SECRET || "",
+
   ACCESS_TOKEN_EXPIRES: process.env.ACCESS_TOKEN_EXPIRES || "2d",
-  REFRESH_TOKEN_SECRET: process.env.REFRESH_TOKEN_SECRET || "",
+
   REFRESH_TOKEN_EXPIRES: process.env.REFRESH_TOKEN_EXPIRES || "2d",
 };
 

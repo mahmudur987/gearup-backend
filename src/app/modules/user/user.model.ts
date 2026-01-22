@@ -1,7 +1,16 @@
 // src/modules/user/user.model.ts
 import { Schema, model } from "mongoose";
 import { IUser, Role, Status } from "./user.interface";
-
+const authProviderSchema = new Schema<IAuthProvider>(
+  {
+    provider: { type: String, required: true },
+    providerId: { type: String, required: true },
+  },
+  {
+    versionKey: false,
+    _id: false,
+  },
+);
 const userSchema = new Schema<IUser>(
   {
     fullName: { type: String, required: true },
@@ -18,11 +27,12 @@ const userSchema = new Schema<IUser>(
     profileImage: { type: String, default: null },
     role: { type: String, enum: Role, default: "user" },
     isDeleted: { type: Boolean, default: false },
-    isActive: {
+    status: {
       type: String,
       enum: Status,
       default: "active",
     },
+    auth: [authProviderSchema],
   },
   { timestamps: true },
 );
