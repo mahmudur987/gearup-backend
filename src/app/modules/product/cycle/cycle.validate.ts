@@ -1,0 +1,31 @@
+import { z } from "zod";
+
+export const baseProductSchema = {
+  title: z.string().min(5),
+  brand: z.string().min(2),
+  price: z.number().positive(),
+  condition: z.enum(["new", "used", "recondition"]),
+  location: z.string().min(3),
+  sellerId: z.string(),
+  contactVisible: z.boolean(),
+  description: z.string().min(10).max(1000),
+  images: z.array(z.string().url()).min(1).max(10),
+  videoUrl: z.string().url().optional(),
+};
+export const createCycleZodSchema = z.object({
+  ...baseProductSchema,
+  vehicleType: z.literal("cycle"),
+  productType: z.literal("vehicle"),
+
+  cycleType: z.enum([
+    "mtb",
+    "road",
+    "hybrid",
+    "bmx",
+    "folding",
+    "kids",
+    "electric",
+  ]),
+  model: z.string().min(1),
+  frameSize: z.string().min(1),
+});

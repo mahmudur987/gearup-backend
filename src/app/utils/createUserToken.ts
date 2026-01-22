@@ -1,9 +1,10 @@
+import { JwtPayload } from "jsonwebtoken";
 import { envVariables } from "../config/env.config";
 import { IUser } from "../modules/user/user.interface";
 import { generateToken } from "./generateToken";
 
 export const createUserToken = (user: Partial<IUser>) => {
-  const jwtPayload = {
+  const jwtPayload: JwtPayload = {
     name: user.fullName,
     email: user.email,
     _id: user._id,

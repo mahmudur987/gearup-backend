@@ -5,6 +5,7 @@ import { catchAsync } from "../../utils/catchAsynch";
 import sendResponse from "../../utils/sendResponse";
 import { UserService } from "./user.service";
 import { profile } from "node:console";
+import { JwtPayload } from "jsonwebtoken";
 
 const createUser = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -50,8 +51,33 @@ const updateUserByAdmin = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const updateUserProfile = catchAsync(async (req: Request, res: Response) => {
+  const payload = req.body;
+  const user = req?.user as JwtPayload;
+  const result = await UserService.updateUserProfile(user._id, payload);
+  sendResponse(res, {
+    statusCode: statusCode.OK,
+    success: true,
+    message: "user updated successfully",
+    data: result,
+  });
+});
+
+const getUserProfile = catchAsync(async (req: Request, res: Response) => {
+  const user = req?.user as JwtPayload;
+  const result = await UserService.getUserProfile(user._id);
+  sendResponse(res, {
+    statusCode: statusCode.OK,
+    success: true,
+    message: "user fetched successfully",
+    data: result,
+  });
+});
+
 export const UserController = {
   createUser,
   getAllUsers,
   updateUserByAdmin,
+  updateUserProfile,
+  getUserProfile,
 };

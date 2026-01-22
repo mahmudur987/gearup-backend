@@ -14,7 +14,7 @@ router.post(
   validateRequest(userValidation.createUserZodSchema),
   UserController.createUser,
 );
-router.get("/get-users", UserController.getAllUsers);
+router.get("/get-users", CheckRole(Role.ADMIN), UserController.getAllUsers);
 
 router.put(
   "/update-user-by-admin",
@@ -23,5 +23,16 @@ router.put(
   validateRequest(userValidation.updateUserByAdminZodSchema),
   UserController.updateUserByAdmin,
 );
-
+router.put(
+  "/update-user-profile",
+  CheckRole(Role.USER),
+  multerUpload.single("profileImage"),
+  validateRequest(userValidation.updateUser),
+  UserController.updateUserProfile,
+);
+router.get(
+  "/get-user-profile",
+  CheckRole(Role.USER),
+  UserController.getUserProfile,
+);
 export const UserRoutes = router;

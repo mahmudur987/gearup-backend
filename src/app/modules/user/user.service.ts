@@ -51,8 +51,48 @@ export const updateUserByAdmin = async (
   return user;
 };
 
+const updateUserProfile = async (id: string, payload: Partial<IUser>) => {
+  const { email, mobile, nidNumber, passportNumber } = payload;
+  let errorMessage = "";
+  let query: Partial<IUser> = {};
+  if (email) {
+    query.email = email;
+    errorMessage = "email already exist";
+  }
+  if (mobile) {
+    query.mobile = mobile;
+    errorMessage = "mobile already exist";
+  }
+  if (nidNumber) {
+    query.nidNumber = nidNumber;
+    errorMessage = "nidNumber already exist";
+  }
+  if (passportNumber) {
+    query.passportNumber = passportNumber;
+    errorMessage = "passportNumber already exist";
+  }
+  const isUserExist = await User.findOne(query);
+  if (isUserExist) {
+    throw new AppError(400, errorMessage);
+  }
+
+  if (payload.password) {
+    payload.password = await bcrypt.hash(payload.password, 10);
+  }
+
+  const user = await User.findOneAndUpdate({ _id: id }, payload, {
+    new: true,
+  });
+  return user;
+};
+const getUserProfile = async (id: string) => {
+  const user = await User.findById(id);
+  return user;
+};
 export const UserService = {
   createUser,
   getAllUsers,
   updateUserByAdmin,
+  getUserProfile,
+  updateUserProfile,
 };
