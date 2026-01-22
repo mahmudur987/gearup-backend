@@ -15,8 +15,8 @@ const userSchema = new Schema<IUser>(
   {
     fullName: { type: String, required: true },
     email: { type: String, required: true, unique: true },
-    mobile: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
+    mobile: { type: String, required: false, unique: true },
+    password: { type: String, required: false },
     address: { type: String },
     nidNumber: { type: String, unique: true, sparse: true },
     passportNumber: { type: String, unique: true, sparse: true },
@@ -27,6 +27,8 @@ const userSchema = new Schema<IUser>(
     profileImage: { type: String, default: null },
     role: { type: String, enum: Role, default: "user" },
     isDeleted: { type: Boolean, default: false },
+    resetPasswordToken: String,
+    resetPasswordExpire: Date,
     status: {
       type: String,
       enum: Status,

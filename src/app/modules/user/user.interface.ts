@@ -30,6 +30,8 @@ export interface IUser {
   role?: Role;
   isDeleted?: boolean;
   status?: Status;
+  resetPasswordToken: string | undefined;
+  resetPasswordExpire: Date | undefined;
   auth?: IAuthProvider[];
   createdAt?: Date;
   updatedAt?: Date;

@@ -18,10 +18,13 @@ export const envVariables = {
   REDIS_PASSWORD: process.env.REDIS_PASSWORD || "",
   REDIS_HOST: process.env.REDIS_HOST || "", // <- use env
   REDIS_PORT: process.env.REDIS_PORT || "", // <- use env
-
   ACCESS_TOKEN_EXPIRES: process.env.ACCESS_TOKEN_EXPIRES || "2d",
-
   REFRESH_TOKEN_EXPIRES: process.env.REFRESH_TOKEN_EXPIRES || "2d",
+  SMTP_HOST: process.env.SMTP_HOST || "",
+  SMTP_PORT: process.env.SMTP_PORT || "",
+  SMTP_USER: process.env.SMTP_USER || "",
+  SMTP_PASS: process.env.SMTP_PASS || "",
+  SMTP_FROM: process.env.SMTP_FROM || "",
 };
 
 export default envVariables;

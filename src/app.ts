@@ -6,7 +6,7 @@ import { notFound } from "./app/middleware/notFound";
 import cookieParser from "cookie-parser";
 import expressSession from "express-session";
 const app = express();
-
+import "./app/config/passport";
 // Middlewares
 app.use(cors());
 app.use(express.json());

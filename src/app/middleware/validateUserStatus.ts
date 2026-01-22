@@ -42,22 +42,6 @@ export const validateUserStatus = (
     };
   }
 
-  if (!user.isEmailVerified) {
-    return {
-      isValid: false,
-      message: "User email is not verified",
-      statusCode: 400,
-    };
-  }
-
-  if (!user.isMobileVerified) {
-    return {
-      isValid: false,
-      message: "User phone is not verified",
-      statusCode: 400,
-    };
-  }
-
   return {
     isValid: true,
     message: "User is valid",
