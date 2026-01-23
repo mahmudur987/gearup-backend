@@ -10,8 +10,9 @@ const credentialsLogIn = async (payload: Partial<IUser>) => {
   const mobile = payload.mobile || null;
 
   if ((!email && !mobile) || !password) {
-    throw new AppError(400, "email or mobile and password are required");
+    throw new AppError(400, "Email or mobile and password are required");
   }
+
   const query: { email?: string; mobile?: string } = {};
   if (email) {
     query.email = email;
@@ -24,7 +25,9 @@ const credentialsLogIn = async (payload: Partial<IUser>) => {
   if (!isUserExist) {
     throw new AppError(400, "User not found");
   }
-
+  if (!isUserExist.password) {
+    throw new AppError(400, "Password is not set for this user");
+  }
   const passwordMatch = await bcrypt.compare(password, isUserExist.password);
 
   if (!passwordMatch) {
