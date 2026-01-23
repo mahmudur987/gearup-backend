@@ -23,5 +23,8 @@ router.get(
 );
 router.post("/forgot-password", AuthController.forgotPassword);
 router.post("/reset-password/:token", AuthController.resetPassword);
-
+router.patch(
+  "/set-password-google-user",
+  AuthController.setPasswordForGoogleUser,
+);
 export const AuthRoutes = router;

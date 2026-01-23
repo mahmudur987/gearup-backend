@@ -28,7 +28,7 @@ const productSchema = new Schema<IProduct>(
     cycleType: {
       type: String,
       enum: ["mtb", "road", "hybrid", "bmx", "folding", "kids", "electric"],
-      required: function () {
+      required: function (): boolean {
         return this.vehicleType === "cycle" && this.productType === "vehicle";
       },
     },

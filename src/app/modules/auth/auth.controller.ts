@@ -12,6 +12,7 @@ import bcrypt from "bcryptjs";
 
 const credentialsLogIn = catchAsync(async (req, res) => {
   const payload = req.body;
+
   const result = await authService.credentialsLogIn(payload);
   res.cookie("accessToken", result.accessToken, {
     maxAge: 3 * 24 * 60 * 60 * 1000,
@@ -24,7 +25,7 @@ const credentialsLogIn = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: StatusCodes.CREATED,
     success: true,
-    message: "user created successfully",
+    message: "user login successfully",
     data: result,
   });
 });
@@ -106,10 +107,22 @@ const resetPassword = catchAsync(async (req: Request, res: Response) => {
 
   res.json({ success: true, message: "Password reset successful" });
 });
+const setPasswordForGoogleUser = catchAsync(
+  async (req: Request, res: Response) => {
+    const result = await authService.setPasswordForGoogleUser(req.body);
+    sendResponse(res, {
+      statusCode: StatusCodes.OK,
+      success: true,
+      message: "Password set successfully",
+      data: result,
+    });
+  },
+);
 
 export const AuthController = {
   credentialsLogIn,
   googleCallback,
   forgotPassword,
   resetPassword,
+  setPasswordForGoogleUser,
 };

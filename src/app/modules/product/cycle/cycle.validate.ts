@@ -1,6 +1,5 @@
 import { z } from "zod";
-
-export const baseProductSchema = {
+export const createCycleZodSchema = z.object({
   title: z.string().min(5),
   brand: z.string().min(2),
   price: z.number().positive(),
@@ -9,14 +8,10 @@ export const baseProductSchema = {
   sellerId: z.string(),
   contactVisible: z.boolean(),
   description: z.string().min(10).max(1000),
-  images: z.array(z.string().url()).min(1).max(10),
+  images: z.array(z.string().url()).min(1).max(10).optional(),
   videoUrl: z.string().url().optional(),
-};
-export const createCycleZodSchema = z.object({
-  ...baseProductSchema,
   vehicleType: z.literal("cycle"),
   productType: z.literal("vehicle"),
-
   cycleType: z.enum([
     "mtb",
     "road",
